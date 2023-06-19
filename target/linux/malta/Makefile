@@ -11,9 +11,10 @@ INITRAMFS_EXTRA_FILES:=
 FEATURES:=cpiogz ext4 ramdisk squashfs targz
 
 KERNEL_PATCHVER:=5.15
+KERNEL_TESTING_PATCHVER:=6.1
 
 include $(INCLUDE_DIR)/target.mk
 
-DEFAULT_PACKAGES += wpad-basic-wolfssl kmod-mac80211-hwsim kmod-pcnet32 mkf2fs e2fsprogs
+DEFAULT_PACKAGES += wpad-basic-mbedtls kmod-mac80211-hwsim kmod-pcnet32 mkf2fs e2fsprogs
 
 $(eval $(call BuildTarget))

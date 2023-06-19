@@ -13,7 +13,7 @@ jobs:
   build:
     name: Build tools
     runs-on: ubuntu-latest
-    container: registry.gitlab.com/openwrt/buildbot/buildworker-3.4.1
+    container: ghcr.io/openwrt/buildbot/buildworker-v3.8.0:v6
 
     steps:
       - name: Checkout
@@ -32,6 +32,7 @@ jobs:
           echo CONFIG_DEVEL=y >> .config
           echo CONFIG_AUTOREMOVE=y >> .config
           echo CONFIG_CCACHE=y >> .config
+          echo CONFIG_BUILD_ALL_HOST_TOOLS=y >> .config
 
       - name: Make prereq
         shell: su buildbot -c "sh -e {0}"
@@ -61,7 +62,7 @@ jobs:
         if: inputs.generate_prebuilt_artifacts == true
         shell: su buildbot -c "sh -e {0}"
         working-directory: openwrt
-        run: tar --mtime=now -cf tools.tar staging_dir/host build_dir/host dl
+        run: tar -cf tools.tar staging_dir/host build_dir/host
 
       - name: Upload prebuilt tools
         if: inputs.generate_prebuilt_artifacts == true
